@@ -1,24 +1,52 @@
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { useGoogleOneTapLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useState } from "react";
 
 function App() {
+  const [ user, setUser ] = useState({});
+
+  const login = useGoogleOneTapLogin({
+    onSuccess: async credentialResponse => {
+      try {
+        const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfor",
+          {
+            headers: {
+              // Authorization: `Bearer ${credentialResponse.access_token}`,
+            }
+          }
+        );
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    onError: () => {
+      console.log("Login Failed");
+    },
+  });
 
   return (
     <main className="bg-zinc-800 w-full h-screen text-white flex justify-center items-center">
-      <GoogleLogin
-        onSuccess={credentialResponse => {
-          let credentialResponseDecoder = null;
+      <div>
+        <button onClick={() => login}>Login</button>
+      </div>
 
-          if (credentialResponse.credential) {
-            credentialResponseDecoder = jwtDecode(credentialResponse.credential);
-          }
-          
-          console.log(credentialResponseDecoder);
-        }}
-        onError={() => {
-          console.log("Login Failed");
-        }}
-      />
+      {/* // <GoogleLogin
+      //   onSuccess={credentialResponse => {
+      //     let credentialResponseDecoder = null;
+
+      //     if (credentialResponse.credential) {
+      //       credentialResponseDecoder = jwtDecode(credentialResponse.credential);
+      //     }
+         
+        //     setUser(credentialResponseDecoder);
+        //     console.log(user);
+        //   }}
+        //   auto_select
+        //   onError={() => {
+        //     console.log("Login Failed");
+        //   }}
+        // /> */}
     </main>
   );
 }
