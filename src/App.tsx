@@ -1,17 +1,17 @@
-import { useGoogleOneTapLogin } from "@react-oauth/google";
+import { CredentialResponse, useGoogleOneTapLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useState } from "react";
 
 function App() {
   const [ user, setUser ] = useState({});
 
-  const login = useGoogleOneTapLogin({
-    onSuccess: async credentialResponse => {
+  const login = () => useGoogleOneTapLogin({
+    onSuccess: async (credentialResponse: CredentialResponse) => {
       try {
         const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfor",
           {
             headers: {
-              // Authorization: `Bearer ${credentialResponse.access_token}`,
+              Authorization: `Bearer ${credentialResponse.clientId}`,
             }
           }
         );
