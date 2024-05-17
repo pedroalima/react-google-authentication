@@ -1,52 +1,61 @@
-import { CredentialResponse, useGoogleOneTapLogin } from "@react-oauth/google";
-import axios from "axios";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 
-function App() {
-  const [ user, setUser ] = useState({});
+// interface UserType {
+//   access_token: string,
+// }
 
-  const login = () => useGoogleOneTapLogin({
-    onSuccess: async (credentialResponse: CredentialResponse) => {
-      try {
-        const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfor",
-          {
-            headers: {
-              Authorization: `Bearer ${credentialResponse.clientId}`,
-            }
-          }
-        );
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    onError: () => {
-      console.log("Login Failed");
-    },
-  });
+// interface ProfileType {
+//   name: string;
+//   picture: string;
+// }
+
+function App() {
+  const [ user, setUser ] = useState(null);
+  // const [ profile, setProfile ] = useState<ProfileType | null>(null);
+
+  // const login = useGoogleLogin({
+  //   onSuccess: (codeResponse) => {
+  //     console.log("Login successful:", codeResponse);
+  //     setUser(codeResponse);
+  //   },
+  //   onError: (error) => console.log("Login Failed:", error)
+  // });
+
+  // useEffect(() => {
+  //   if (user) {
+  //     axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${user.access_token}`,
+  //         Accept: "application/json"
+  //       }
+  //     })
+  //       .then((res) => {
+  //         setProfile(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, [ user ]
+  // );
 
   return (
     <main className="bg-zinc-800 w-full h-screen text-white flex justify-center items-center">
-      <div>
+      {/* <div>
         <button onClick={() => login}>Login</button>
-      </div>
+      </div> */}
 
-      {/* // <GoogleLogin
-      //   onSuccess={credentialResponse => {
-      //     let credentialResponseDecoder = null;
-
-      //     if (credentialResponse.credential) {
-      //       credentialResponseDecoder = jwtDecode(credentialResponse.credential);
-      //     }
-         
-        //     setUser(credentialResponseDecoder);
-        //     console.log(user);
-        //   }}
-        //   auto_select
-        //   onError={() => {
-        //     console.log("Login Failed");
-        //   }}
-        // /> */}
+      <GoogleLogin
+        onSuccess={(credentialResponse : CredentialResponse)  => {
+          if (credentialResponse.credential) {
+            setUser(jwtDecode(credentialResponse.credential));
+          }
+          console.log(user);
+        }}
+        onError={() => {
+          console.log("Login Failed");
+        }}
+      />
     </main>
   );
 }
