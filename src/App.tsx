@@ -25,36 +25,45 @@ function App() {
 
   useEffect(() => {
     console.log(user);
-    // console.log(accessToken);
+    console.log(profile);
     
     if (user) {
-      try {
-        const res = axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: "application/json"
-          }
+      axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+          Accept: "application/json"
         }
-        );
-        console.log(res);
-        // setProfile(res.data);
-      } catch (error) {
-        console.log(error);
       }
+      ).then(res => {
+        setProfile(res.data);
+      })
+        .catch(error => {
+          console.error(error);
+        });
     }
   }, [ user ]
   );
 
   return (
     <main className="bg-zinc-800 w-full h-screen text-white flex justify-center items-center">
-      <div>
-        <button onClick={() => login()}>Login</button>
+      <div className="flex flex-col items-center gap-10">
+        {profile ? (
+          <>
+            <h3>Olá <strong>{profile.name}</strong></h3>
+            <img src={profile.picture} className="rounded-full" alt="Imagem de perfil" />
+          </>
+        ) : (
+          <>
+            <h3>Faça login com auxilio do React Oauth Google</h3>
+            <div className="rounded-full w-[96px] h-[96px] bg-gray-500/30"></div>
+          </>
+        )
+        }
+        <button className="px-6 py-2 bg-white hover:bg-gray-200 transition-all text-black font-semibold text-lg rounded-full" onClick={() => login()}>Entrar com Google</button>
       </div>
 
       <div>
-        {/* {user && (
-          <h3>Olá {user.name}</h3>
-        )} */}
+
 
         {/* <GoogleLogin
           onSuccess={(credentialResponse : CredentialResponse)  => {
