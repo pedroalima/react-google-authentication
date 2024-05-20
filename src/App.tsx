@@ -2,10 +2,6 @@ import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-// interface UserType {
-//   access_token: string,
-// }
-
 interface ProfileType {
   name: string;
   picture: string;
@@ -49,38 +45,20 @@ function App() {
       <div className="flex flex-col items-center gap-10">
         {profile ? (
           <>
-            <h3>Olá <strong>{profile.name}</strong></h3>
+            <h3 className="text-2xl">Olá <strong>{profile.name}</strong></h3>
             <img src={profile.picture} className="rounded-full" alt="Imagem de perfil" />
           </>
         ) : (
           <>
-            <h3>Faça login com auxilio do React Oauth Google</h3>
+            <h3 className="text-2xl">Faça login com auxílio do <strong>React Oauth Google</strong></h3>
             <div className="rounded-full w-[96px] h-[96px] bg-gray-500/30"></div>
           </>
         )
         }
-        <button className="px-6 py-2 bg-white hover:bg-gray-200 transition-all text-black font-semibold text-lg rounded-full" onClick={() => login()}>Entrar com Google</button>
-      </div>
-
-      <div>
-
-
-        {/* <GoogleLogin
-          onSuccess={(credentialResponse : CredentialResponse)  => {
-            setAccessToken(credentialResponse);
-
-            let credentialResponseDecoded;
-
-            if (credentialResponse.credential) {
-              credentialResponseDecoded = jwtDecode(credentialResponse.credential);
-            }
-            setUser(credentialResponseDecoded);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-          useOneTap
-        /> */}
+        <button 
+          className="px-6 py-2 bg-white hover:bg-gray-200 transition-all text-black font-semibold text-lg rounded-full" 
+          onClick={() => login()}
+        >Entrar com Google</button>
       </div>
     </main>
   );
