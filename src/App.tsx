@@ -1,5 +1,6 @@
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { setCookie } from "nookies";
 import { useEffect, useState } from "react";
 
 interface ProfileType {
@@ -14,6 +15,7 @@ function App() {
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       console.log("Login successful:", codeResponse);
+      setCookie(null, "auth_token", codeResponse.access_token);
       setUser(codeResponse);
     },
     onError: (error) => console.log("Login Failed:", error)
