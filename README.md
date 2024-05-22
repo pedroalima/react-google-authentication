@@ -1,46 +1,132 @@
-# Getting Started with Create React App
+# React Google Authentication
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Uma aplicação de página única para autenticação com google.
 
-## Available Scripts
+A página web é de minha autoria e foi inspirada em outras aplicações já existentes, adaptando seus designs e recursos. A aplicação foi desenvolvida utilizando tecnologias como TypeScript, React, TailwindCSS.
 
-In the project directory, you can run:
+## Screenshots
 
-### `npm start`
+![#](./public/desktop-view.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+</br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Objetivos
 
-### `npm test`
+O principal objetivo deste projeto foi simular um ambiente que realiza a autenticação do google
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Os usuários têm a capacidade de:
+- Logar com sua conta do Google
 
-### `npm run build`
+> OBS - Por questões de segurança essa aplicação não está disponível na internet, mas se desejar, você pode fazer um fork do projeto para testes em sua máquina local.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+</br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Propriedades e Tecnologias
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- TypeScript
+- React
+- TailwindCSS
+- React Oauth Google
 
-### `npm run eject`
+</br>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<!-- ## Meu aprendizado
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Ao me deparar com o banco de dados MongoDB pela primeira vez, aprendi sobre o aspecto de modelagem de objetos elaborado pelo Mongoose.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Após estabelecer a conexão com o banco de dados, é necessário criar um esquema para cada objeto:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```tsx
+import mongoose from "mongoose";
 
-## Learn More
+const HomeSchema = new mongoose.Schema({
+    mainText: String,
+    description: String,
+},
+{ timestamps: true });
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+const Home = mongoose.models.Home || mongoose.model("Home", HomeSchema);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export default Home;
+```
+
+Ao definir cada esquema, é necessário criar e exportar o modelo correspondente. Dessa forma, tudo está pronto para ser aplicado em cada rota.
+
+```tsx
+import connectToDatabase from "@/database";
+import Home from "@/models/Home";
+import { NextRequest, NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
+
+export async function POST(req: NextRequest) {
+    try {
+        await connectToDatabase();
+        const extractData = await req.json();
+        const saveData = await Home.create(extractData);
+
+        if (saveData) {
+            return NextResponse.json({
+                success: true,
+                message: "Data saved successfully",
+            });
+        } else {
+            return NextResponse.json({
+                success: false,
+                message: "Something goes wrong! Please try again",
+            });
+        }
+    } catch (error) {
+        console.log(error);
+
+        return NextResponse.json({
+            success: false,
+            message: "Something goes wrong! Please try again",
+        });
+    }
+}
+```
+
+Veja mais detalhes na documentação oficial [aqui](https://mongoosejs.com/docs/guide.html)
+</br>
+
+## Rodando o projeto
+
+![#](./public/desktop.gif)
+
+### Acesse a aplicação via web [aqui!](https://portifolio-pedroalima.vercel.app/)
+
+#### Ou instale na sua máquina. Para conferir a versão final, é só realizar os seguintes passos:
+
+### 1 - Clonando o Projeto:
+Navegue até o diretório onde deseja clonar o projeto. Abra o terminal com o GitBash e execute o comando:
+
+```bash
+git clone URL_DO_REPOSITORIO
+```
+Substitua URL_DO_REPOSITORIO pela URL do repositório deste projeto.
+
+#### 2 - Instalando Dependências:
+Navegue até a pasta clonada do projeto e execute o comando no terminal:
+
+```bash
+npm install
+```
+ou
+```bash
+yarn install
+```
+
+#### 3 - Executando o Projeto:
+Ainda na pasta do projeto, execute o comando no terminal:
+
+```bash
+npm run dev
+```
+Isso iniciará o servidor de desenvolvimento Next.
+
+</br> -->
+
+## Autor
+
+- LinkedIn - [Pedro A. Lima](https://www.linkedin.com/in/pedroalima6/)

@@ -24,13 +24,14 @@ function App() {
 
   const logout = () => {
     destroyCookie(null, "auth_token");
+    
   };
 
   useEffect(() => {
     const { "auth_token": token } = parseCookies();
-    console.log(user);
-    console.log(profile);
-    console.log(token);
+    console.log("User: ", user);
+    console.log("Profile: ", profile);
+    console.log("token: ", token);
     
     if (user) {
       axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
