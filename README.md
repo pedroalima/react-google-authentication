@@ -30,11 +30,11 @@ Os usuários têm a capacidade de:
 
 </br>
 
-<!-- ## Meu aprendizado
+## Meu aprendizado
 
-Ao me deparar com o banco de dados MongoDB pela primeira vez, aprendi sobre o aspecto de modelagem de objetos elaborado pelo Mongoose.
+Fazer login com o google é uma ferramenta frequentemente utilizada em diversas aplicações, tras uma simplicidade no processo de autenticação, onde com poucos cliques muita informação é transitada do cliente para o servidor.
 
-Após estabelecer a conexão com o banco de dados, é necessário criar um esquema para cada objeto:
+<!-- Após estabelecer a conexão com o banco de dados, é necessário criar um esquema para cada objeto:
 
 ```tsx
 import mongoose from "mongoose";
@@ -88,43 +88,6 @@ export async function POST(req: NextRequest) {
 ```
 
 Veja mais detalhes na documentação oficial [aqui](https://mongoosejs.com/docs/guide.html)
-</br>
-
-## Rodando o projeto
-
-![#](./public/desktop.gif)
-
-### Acesse a aplicação via web [aqui!](https://portifolio-pedroalima.vercel.app/)
-
-#### Ou instale na sua máquina. Para conferir a versão final, é só realizar os seguintes passos:
-
-### 1 - Clonando o Projeto:
-Navegue até o diretório onde deseja clonar o projeto. Abra o terminal com o GitBash e execute o comando:
-
-```bash
-git clone URL_DO_REPOSITORIO
-```
-Substitua URL_DO_REPOSITORIO pela URL do repositório deste projeto.
-
-#### 2 - Instalando Dependências:
-Navegue até a pasta clonada do projeto e execute o comando no terminal:
-
-```bash
-npm install
-```
-ou
-```bash
-yarn install
-```
-
-#### 3 - Executando o Projeto:
-Ainda na pasta do projeto, execute o comando no terminal:
-
-```bash
-npm run dev
-```
-Isso iniciará o servidor de desenvolvimento Next.
-
 </br> -->
 
 ## Autor
