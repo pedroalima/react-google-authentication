@@ -34,8 +34,11 @@ Os usuários têm a capacidade de:
 
 Fazer login com o google é uma ferramenta frequentemente utilizada em diversas aplicações, tras uma simplicidade no processo de autenticação, onde com poucos cliques muita informação é transitada do cliente para o servidor.
 
-<!-- Após estabelecer a conexão com o banco de dados, é necessário criar um esquema para cada objeto:
+Atualmente o pacote disponível para utilizar o serviço é o [react-oauth/google](https://www.npmjs.com/package/@react-oauth/google) com auxilio do [Google Cloud Platform](https://console.cloud.google.com/).
 
+O primeiro passo é criar um projeto na plataforma do google cloud, você pode conferir o passo a passo nesse [artigo](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/)
+
+<!--
 ```tsx
 import mongoose from "mongoose";
 
