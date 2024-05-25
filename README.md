@@ -36,7 +36,29 @@ Fazer login com o google é uma ferramenta frequentemente utilizada em diversas 
 
 Atualmente o pacote disponível para utilizar o serviço é o [react-oauth/google](https://www.npmjs.com/package/@react-oauth/google) com auxilio do [Google Cloud Platform](https://console.cloud.google.com/).
 
-O primeiro passo é criar um projeto na plataforma do google cloud, você pode conferir o passo a passo nesse [artigo](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/)
+O primeiro precisamos é criar um projeto na plataforma do Google Cloud, você pode conferir o passo a passo nesse [artigo](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/). Com isso vamos obter o ID do cliente.
+
+![#](./public/clientid.png)
+
+Partindo para o código, precisamos envolver a aplicação com a função GoogleOAuthProvider, utilizando o clientId.
+
+```tsx
+...
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <GoogleOAuthProvider clientId="***********-*****************.apps.googleusercontent.com">
+      <App />
+    </GoogleOAuthProvider>
+  </React.StrictMode>
+);
+```
+
+Isso vai nos dar autorização para utilizar a plataforma do Google Cloud.
 
 <!--
 ```tsx

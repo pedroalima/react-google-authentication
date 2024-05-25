@@ -24,7 +24,6 @@ function App() {
 
   const logout = () => {
     destroyCookie(null, "auth_token");
-    
   };
 
   useEffect(() => {
@@ -85,8 +84,7 @@ function App() {
               onClick={() => login()}
             >Entrar com Google</button>
           </>
-        )
-        }
+        )}
       </div>
     </main>
   );
