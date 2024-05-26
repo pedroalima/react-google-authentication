@@ -19,7 +19,6 @@ function App() {
       setCookie(null, "auth_token", codeResponse.access_token);
       setUser(codeResponse);
     },
-    onError: (error) => console.log("Login Failed:", error)
   });
 
   const logout = () => {

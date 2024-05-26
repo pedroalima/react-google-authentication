@@ -58,7 +58,47 @@ root.render(
 );
 ```
 
-Isso vai nos dar autorização para utilizar a plataforma do Google Cloud.
+Isso vai nos dar autorização para utilizar a plataforma do Google Cloud. A partir daqui temos dois caminhos, usar o botão padrão (GoogleLogin) ou o personalizado (useGoogleLogin), nesse artigo seguiremos pelo segundo. 
+
+```tsx
+...
+import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
+
+function App() {
+  const [ user, setUser ] = useState<TokenResponse | undefined>(undefined);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log("Login successful:", codeResponse);
+      setCookie(null, "auth_token", codeResponse.access_token);
+      setUser(codeResponse);
+    },
+    onError: (error) => console.log("Login Failed:", error)
+  });
+
+  return (
+    <main className="bg-zinc-800 w-full h-screen text-white flex justify-center items-center">
+      <div className="flex flex-col items-center gap-10">
+        <h3 className="text-2xl">Faça login com auxílio do <strong>React Oauth Google</strong></h3>
+        <div className="rounded-full w-[96px] h-[96px] bg-gray-500/30">
+            <IoPersonCircle className="w-full h-full" />
+        </div>
+        <button 
+            className="px-6 py-2 bg-white hover:bg-gray-200 transition-all text-black font-semibold text-lg rounded-full" 
+            onClick={() => login()}
+        >Entrar com Google</button>
+      </div>
+    </main>
+  );
+}
+...
+```
+
+O useGoogleLogin tem duas propriedades por padrão: onSuccess e onError. A primeira é uma função interna que faz uma solicitação para o servidor do Google Cloud e retorna o token de autenticação dentre outras informações, a segunda também é uma função, mas que caputura os erros da solicitação.
+
+Uma obsevação importante a destacar, não é recomendado utilizar esse exemplo em projetos reais, por segurança é necessário utilizar os recursos desse framework em conjunto do back-end, criando uma sessão para guardar as informações, contudo, esse projeto é destinado apenas para fins de estudo prático.
+
+
 
 <!--
 ```tsx
