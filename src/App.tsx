@@ -39,6 +39,7 @@ function App() {
         }
       }
       ).then(res => {
+        console.log(res.data);
         setProfile(res.data);
       })
         .catch(error => {
@@ -52,6 +53,7 @@ function App() {
         }
       }
       ).then(res => {
+        console.log(res.data);
         setProfile(res.data);
       })
         .catch(error => {

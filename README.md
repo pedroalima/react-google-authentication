@@ -94,10 +94,59 @@ function App() {
 ...
 ```
 
-O useGoogleLogin tem duas propriedades por padrão: onSuccess e onError. A primeira é uma função interna que faz uma solicitação para o servidor do Google Cloud e retorna o token de autenticação dentre outras informações, a segunda também é uma função, mas que caputura os erros da solicitação.
+O useGoogleLogin tem duas propriedades por padrão: onSuccess e onError. A primeira é uma função interna que faz uma solicitação para o servidor do Google Cloud e retorna o token de autenticação dentre outras informações. A segunda também é uma função, mas que caputura os erros da solicitação.
+
+```tsx
+{
+  access_token: 
+    'ya29.a0AXooCgtelLQdOn_cjw0ysqaBFxwFtK84l6IG7MnmqABKdOPpV3sHDVPthJfBeR5f9EkywvtOP3JcqPAKzycMQDEGJWorXWVG6Q7cECqe1GzrmmTMA8CBTx97lqR3d6rk35Ettf2-R_uZZOHZBStWgOJwPkqYBvrAmxwaCgYKAesSARISFQHGX2Mi1Bnxm0X9CdS9X1a72Yg6yA0170',
+  token_type: 'Bearer',
+  expires_in: 3598,
+  scope: 
+    'email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid',
+  authuser: '0',
+  prompt: 'none'
+}
+```
+
+Com o token podemos recuperar as informações do usuário solicitando a API do google.
+
+```tsx
+...
+  axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+    headers: {
+      Authorization: `Bearer ${user.access_token}`,
+      Accept: "application/json"
+    }
+  }
+  ).then(res => {
+    setProfile(res.data);
+  })
+    .catch(error => {
+      console.error(error);
+    });
+...
+```
+
+Dentre as informações retornadas as mais relevantes são nome, email e a url da imagem de perfil do usuário.
+
+```tsx
+{
+  id: '************',
+  email: '************',
+  verified_email: ************,
+  name: '************',
+  given_name: '************',
+  family_name: '************',
+  picture: 
+    '************',
+  locale: '************'
+}
+```
 
 Uma obsevação importante a destacar, não é recomendado utilizar esse exemplo em projetos reais, por segurança é necessário utilizar os recursos desse framework em conjunto do back-end, criando uma sessão para guardar as informações, contudo, esse projeto é destinado apenas para fins de estudo prático.
 
+Este artigo é um resumo do artigo: [In Depth Guide: “Sign In With Google” In A React JS Application](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/). De Khoj Badami
 
 
 <!--
