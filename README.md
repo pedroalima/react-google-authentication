@@ -1,6 +1,6 @@
 # React Google Authentication
 
-Uma aplicação de página única para autenticação com google.
+Uma aplicação de página única para autenticação com Google.
 
 A página web é de minha autoria e foi inspirada em outras aplicações já existentes, adaptando seus designs e recursos. A aplicação foi desenvolvida utilizando tecnologias como TypeScript, React, TailwindCSS.
 
@@ -12,12 +12,12 @@ A página web é de minha autoria e foi inspirada em outras aplicações já exi
 
 ## Objetivos
 
-O principal objetivo deste projeto foi simular um ambiente que realiza a autenticação do google
+O principal objetivo deste projeto foi simular um ambiente que realiza a autenticação com Google.
 
 Os usuários têm a capacidade de:
 - Logar com sua conta do Google
 
-> OBS - Por questões de segurança essa aplicação não está disponível na internet, mas se desejar, você pode fazer um fork do projeto para testes em sua máquina local.
+> OBS - Por questões de segurança, essa aplicação não está disponível na internet, mas se desejar, você pode fazer um fork do projeto para testes em sua máquina local.
 
 </br>
 
@@ -32,11 +32,11 @@ Os usuários têm a capacidade de:
 
 ## Meu aprendizado
 
-Fazer login com o google é uma ferramenta frequentemente utilizada em diversas aplicações, tras uma simplicidade no processo de autenticação, onde com poucos cliques muita informação é transitada do cliente para o servidor.
+Fazer login com o Google é uma ferramenta frequentemente utilizada em diversas aplicações. Ela traz simplicidade ao processo de autenticação, uma solução com poucos cliques.
 
-Atualmente o pacote disponível para utilizar o serviço é o [react-oauth/google](https://www.npmjs.com/package/@react-oauth/google) com auxilio do [Google Cloud Platform](https://console.cloud.google.com/).
+Atualmente, o pacote disponível para utilizar o serviço é o [react-oauth/google](https://www.npmjs.com/package/@react-oauth/google) com auxílio do [Google Cloud Platform](https://console.cloud.google.com/).
 
-O primeiro precisamos é criar um projeto na plataforma do Google Cloud, você pode conferir o passo a passo nesse [artigo](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/). Com isso vamos obter o ID do cliente.
+Primeiro, precisamos criar um projeto na plataforma do Google Cloud. Você pode conferir o passo a passo neste [artigo](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/). Com isso, vamos obter o ID do cliente.
 
 ![#](./public/clientid.png)
 
@@ -58,7 +58,7 @@ root.render(
 );
 ```
 
-Isso vai nos dar autorização para utilizar a plataforma do Google Cloud. A partir daqui temos dois caminhos, usar o botão padrão (GoogleLogin) ou o personalizado (useGoogleLogin), nesse artigo seguiremos pelo segundo. 
+Isso nos dará autorização para utilizar a plataforma do Google Cloud. A partir daqui, temos dois caminhos: usar o botão padrão (GoogleLogin) ou o personalizado (useGoogleLogin), neste artigo seguiremos pelo segundo. 
 
 ```tsx
 ...
@@ -94,7 +94,7 @@ function App() {
 ...
 ```
 
-O useGoogleLogin tem duas propriedades por padrão: onSuccess e onError. A primeira é uma função interna que faz uma solicitação para o servidor do Google Cloud e retorna o token de autenticação dentre outras informações. A segunda também é uma função, mas que caputura os erros da solicitação.
+O useGoogleLogin tem duas propriedades por padrão: onSuccess e onError. A primeira é uma função interna que faz uma solicitação para o servidor do Google Cloud e retorna o token de autenticação, entre outras informações. A segunda também é uma função, mas que captura os erros da solicitação.
 
 ```tsx
 {
@@ -109,7 +109,7 @@ O useGoogleLogin tem duas propriedades por padrão: onSuccess e onError. A prime
 }
 ```
 
-Com o token podemos recuperar as informações do usuário solicitando a API do google.
+Com o token, podemos recuperar as informações do usuário solicitando a API do Google.
 
 ```tsx
 ...
@@ -128,7 +128,7 @@ Com o token podemos recuperar as informações do usuário solicitando a API do 
 ...
 ```
 
-Dentre as informações retornadas as mais relevantes são nome, email e a url da imagem de perfil do usuário.
+Dentre as informações retornadas, as mais relevantes são nome, email e a URL da imagem de perfil do usuário.
 
 ```tsx
 {
@@ -144,65 +144,11 @@ Dentre as informações retornadas as mais relevantes são nome, email e a url d
 }
 ```
 
-Uma obsevação importante a destacar, não é recomendado utilizar esse exemplo em projetos reais, por segurança é necessário utilizar os recursos desse framework em conjunto do back-end, criando uma sessão para guardar as informações, contudo, esse projeto é destinado apenas para fins de estudo prático.
+Uma observação importante a destacar: não é recomendado utilizar esse exemplo em projetos reais. Por segurança, é necessário utilizar os recursos desse framework em conjunto com o back-end, criando uma sessão para guardar as informações. Contudo, esse projeto é destinado apenas para fins de estudo prático.
 
-Este artigo é um resumo do artigo: [In Depth Guide: “Sign In With Google” In A React JS Application](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/). De Khoj Badami
+Você poderá encontrar mais informações no artigo: [In Depth Guide: “Sign In With Google” In A React JS Application](https://livefiredev.com/in-depth-guide-sign-in-with-google-in-a-react-js-application/), de Khoj Badami.
 
-
-<!--
-```tsx
-import mongoose from "mongoose";
-
-const HomeSchema = new mongoose.Schema({
-    mainText: String,
-    description: String,
-},
-{ timestamps: true });
-
-const Home = mongoose.models.Home || mongoose.model("Home", HomeSchema);
-
-export default Home;
-```
-
-Ao definir cada esquema, é necessário criar e exportar o modelo correspondente. Dessa forma, tudo está pronto para ser aplicado em cada rota.
-
-```tsx
-import connectToDatabase from "@/database";
-import Home from "@/models/Home";
-import { NextRequest, NextResponse } from "next/server";
-
-export const dynamic = "force-dynamic";
-
-export async function POST(req: NextRequest) {
-    try {
-        await connectToDatabase();
-        const extractData = await req.json();
-        const saveData = await Home.create(extractData);
-
-        if (saveData) {
-            return NextResponse.json({
-                success: true,
-                message: "Data saved successfully",
-            });
-        } else {
-            return NextResponse.json({
-                success: false,
-                message: "Something goes wrong! Please try again",
-            });
-        }
-    } catch (error) {
-        console.log(error);
-
-        return NextResponse.json({
-            success: false,
-            message: "Something goes wrong! Please try again",
-        });
-    }
-}
-```
-
-Veja mais detalhes na documentação oficial [aqui](https://mongoosejs.com/docs/guide.html)
-</br> -->
+</br>
 
 ## Autor
 
