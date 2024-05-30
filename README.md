@@ -40,7 +40,7 @@ Primeiro, precisamos criar um projeto na plataforma do Google Cloud. Você pode 
 
 ![#](./public/clientid.png)
 
-Partindo para o código, precisamos envolver a aplicação com a função GoogleOAuthProvider, utilizando o clientId.
+Partindo para o código, precisamos envolver a raiz da aplicação com a função GoogleOAuthProvider, utilizando o clientId.
 
 ```tsx
 ...
